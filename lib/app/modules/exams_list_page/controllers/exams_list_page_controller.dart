@@ -1,27 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:quezo/app/data/exams_item.dart';
+import 'package:quezo/app/data/main_categories_model.dart';
 
-import '../../../data/main_categories_model.dart';
-import '../../../routes/app_pages.dart';
+class ExamsListPageController extends GetxController {
+  final args = Get.arguments as List;
 
-class SubjectsPageController extends GetxController {
-  final categoryId = Get.arguments as String;
   var isLoading = false;
-  var subjectsList = <MainCategories>[];
+  var examsList = <ExamItem>[];
 
   Future<void> getData() async {
+    final exam = args[0] as MainCategories;
+    final catId = args[1] as String;
     // isLoading = true;
     // update();
     try {
       QuerySnapshot subjs = await FirebaseFirestore.instance
           .collection("sections")
-          .doc(categoryId)
+          .doc(catId)
           .collection('subjects')
+          .doc(exam.id)
+          .collection('quezes')
           .get();
-      subjectsList.clear();
-      for (var category in subjs.docs) {
-        subjectsList
-            .add(MainCategories(name: category['name'], id: category.id));
+      examsList.clear();
+      for (var subj in subjs.docs) {
+        examsList.add(ExamItem(
+            name: subj['name'], id: subj.id, qNumber: subj['q_number']));
       }
       // isLoading = false;
     } catch (e) {
@@ -30,13 +34,6 @@ class SubjectsPageController extends GetxController {
     }
 
     update();
-  }
-
-  void navigate(int index) {
-    Get.toNamed(
-      Routes.EXAMS_LIST_PAGE,
-      arguments: [subjectsList[index], categoryId],
-    );
   }
 
   @override

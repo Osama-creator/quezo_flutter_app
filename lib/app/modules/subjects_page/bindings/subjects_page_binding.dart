@@ -5,8 +5,8 @@ import '../controllers/subjects_page_controller.dart';
 class SubjectsPageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SubjectsPageController>(
-      () => SubjectsPageController(),
+    Get.put<SubjectsPageController>(
+      SubjectsPageController(),
     );
   }
 }

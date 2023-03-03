@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:quezo/app/data/main_categories_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../routes/app_pages.dart';
+
 class HomeController extends GetxController {
   var isLoading = false;
   var categoriesList = <MainCategories>[];
@@ -27,10 +29,10 @@ class HomeController extends GetxController {
   }
 
   void navigate(int index) {
-    // Get.toNamed(
-    //   Routes.LIST_CATEGORY_PRODUCTS,
-    //   arguments: categoriesList[index].id,
-    // );
+    Get.toNamed(
+      Routes.SUBJECTS_PAGE,
+      arguments: categoriesList[index].id,
+    );
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/config/utils/colors.dart';
+import '../../views/category_card.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -33,10 +34,10 @@ class HomeView extends GetView<HomeController> {
                           itemCount: controller.categoriesList.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () => controller.navigate,
+                              onTap: () => controller.navigate(index),
                               child: CategoryCard(
                                 title: controller.categoriesList[index].name,
-                                color: const Color.fromARGB(255, 75, 0, 9),
+                                color: const Color.fromARGB(255, 43, 43, 43),
                               ),
                             );
                           },
@@ -44,28 +45,5 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ));
         });
-  }
-}
-
-class CategoryCard extends StatelessWidget {
-  final String title;
-  final Color color;
-  const CategoryCard({Key? key, required this.title, required this.color})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: context.height * 0.02),
-      height: context.height * 0.1,
-      decoration:
-          BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
-      child: Center(
-        child: Text(
-          title,
-          style: context.textTheme.headline5!.copyWith(color: AppColors.white),
-        ),
-      ),
-    );
   }
 }
