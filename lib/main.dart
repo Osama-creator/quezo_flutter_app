@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
+import 'core/config/theme/light_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +12,7 @@ Future<void> main() async {
     GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
+      theme: getThemDataLight(),
       getPages: AppPages.routes,
     ),
   );
