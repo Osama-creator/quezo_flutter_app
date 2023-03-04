@@ -12,8 +12,11 @@ ThemeData getThemDataLight() => ThemeData(
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
       ),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(AppColors.primary))),
       cardTheme: const CardTheme(color: AppColors.primary),
-      dividerColor: AppColors.secondPrimary,
+      dividerColor: AppColors.primary,
       textTheme: TextTheme(
           headline1: GoogleFonts.cairo(
               fontSize: 72.0,

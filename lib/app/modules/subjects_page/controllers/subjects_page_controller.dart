@@ -10,8 +10,6 @@ class SubjectsPageController extends GetxController {
   var subjectsList = <MainCategories>[];
 
   Future<void> getData() async {
-    // isLoading = true;
-    // update();
     try {
       QuerySnapshot subjs = await FirebaseFirestore.instance
           .collection("sections")
@@ -23,10 +21,8 @@ class SubjectsPageController extends GetxController {
         subjectsList
             .add(MainCategories(name: category['name'], id: category.id));
       }
-      // isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString());
-      // isLoading = false;
     }
 
     update();

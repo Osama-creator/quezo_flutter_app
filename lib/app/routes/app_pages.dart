@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/exam_page/bindings/exam_page_binding.dart';
+import '../modules/exam_page/views/exam_page_view.dart';
 import '../modules/exams_list_page/bindings/exams_list_page_binding.dart';
 import '../modules/exams_list_page/views/exams_list_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.EXAMS_LIST_PAGE,
       page: () => const ExamsListPageView(),
       binding: ExamsListPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAM_PAGE,
+      page: () => ExamPageView(),
+      binding: ExamPageBinding(),
     ),
   ];
 }

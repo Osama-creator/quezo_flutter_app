@@ -10,7 +10,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Application",
+      textDirection: TextDirection.rtl,
       initialRoute: AppPages.INITIAL,
       theme: getThemDataLight(),
       getPages: AppPages.routes,

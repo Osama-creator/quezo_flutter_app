@@ -13,38 +13,39 @@ class ExamsListPageView extends GetView<ExamsListPageController> {
         initState: (_) {},
         builder: (controller) {
           controller.getData();
-          return Scaffold(
-            body: Center(
-              child: controller.isLoading
-                  ? const CircularProgressIndicator()
-                  : GridView.builder(
-                      itemCount: controller.examsList.length,
-                      padding: const EdgeInsets.all(5),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4, childAspectRatio: 0.90),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  controller.examsList[index].name,
-                                  style: context.textTheme.headline5,
-                                ),
-                                Text(
-                                  controller.examsList[index].qNumber
-                                      .toString(),
-                                  style: context.textTheme.headline6,
-                                ),
-                              ],
+          return SafeArea(
+            child: Scaffold(
+              body: Center(
+                child: controller.isLoading
+                    ? const CircularProgressIndicator()
+                    : GridView.builder(
+                        itemCount: controller.examsList.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3, childAspectRatio: 1.1),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => controller.navigate(index),
+                            child: Card(
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    controller.examsList[index].name,
+                                    style: context.textTheme.bodyText2,
+                                  ),
+                                  Text(
+                                    " عدد الإسئله :${controller.examsList[index].qNumber}",
+                                    style: context.textTheme.bodyText2,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
+              ),
             ),
           );
         });
