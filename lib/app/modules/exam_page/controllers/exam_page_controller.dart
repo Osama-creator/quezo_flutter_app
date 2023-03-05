@@ -5,13 +5,14 @@ import 'package:quezo/app/data/quistion_item.dart';
 
 import '../../../data/exams_item.dart';
 import '../../../data/main_categories_model.dart';
+import '../../../routes/app_pages.dart';
 
 class ExamPageController extends GetxController {
   late PageController pageController;
   final args = Get.arguments as List;
   var isLoading = false;
+  int qNumber = 1;
   var quistionList = <Question>[];
-  String userChoice = "";
 
   Future<void> getData() async {
     final exam = args[0] as MainCategories;
@@ -39,7 +40,7 @@ class ExamPageController extends GetxController {
               quistion['الإجابة_الصحيحة'],
               quistion['إجابه_3'],
               quistion['إجابه_4']
-            ]));
+            ]..shuffle()));
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -56,15 +57,21 @@ class ExamPageController extends GetxController {
   void selectChoice(String value) {
     final currentQuestion = quistionList[pageController.page!.toInt()];
     currentQuestion.userChoice = value;
-    userChoice = value;
     update();
   }
 
   void goToNextPage(int index) {
-    pageController.nextPage(
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
+    if (qNumber < quistionList.length) {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+      qNumber++;
+    } else {
+      Get.toNamed(Routes.EXAM_RESULT, arguments: [quistionList, finalMark()]);
+    }
+
+    update();
   }
 
   void goToPrevPage(int index) {
@@ -72,6 +79,18 @@ class ExamPageController extends GetxController {
       duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+    qNumber > 1 ? qNumber-- : null;
+    update();
+  }
+
+  int finalMark() {
+    int mark = 0;
+    for (int i = 0; i < quistionList.length; i++) {
+      if (quistionList[i].userChoice == quistionList[i].rightAnswer) {
+        mark++;
+      }
+    }
+    return mark;
   }
 
   @override

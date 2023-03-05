@@ -15,7 +15,7 @@ ThemeData getThemDataLight() => ThemeData(
       elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(AppColors.primary))),
-      cardTheme: const CardTheme(color: AppColors.primary),
+      cardTheme: const CardTheme(color: AppColors.black),
       dividerColor: AppColors.primary,
       textTheme: TextTheme(
           headline1: GoogleFonts.cairo(

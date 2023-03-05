@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/exam_page/bindings/exam_page_binding.dart';
 import '../modules/exam_page/views/exam_page_view.dart';
+import '../modules/exam_result/bindings/exam_result_binding.dart';
+import '../modules/exam_result/views/exam_result_view.dart';
 import '../modules/exams_list_page/bindings/exams_list_page_binding.dart';
 import '../modules/exams_list_page/views/exams_list_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -34,8 +36,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EXAM_PAGE,
-      page: () => ExamPageView(),
+      page: () => const ExamPageView(),
       binding: ExamPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAM_RESULT,
+      page: () => const ExamResultView(),
+      binding: ExamResultBinding(),
     ),
   ];
 }

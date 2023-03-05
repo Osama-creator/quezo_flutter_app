@@ -15,15 +15,12 @@ class ExamPageView extends GetView<ExamPageController> {
         init: ExamPageController(),
         builder: (controller) {
           int index = controller.qIndex();
-
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Expanded(
-                  child: Text(
-                      "السؤال ${index + 1} من ${controller.quistionList.length}",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ),
+                title: Text(
+                    "السؤال ${controller.qNumber} من ${controller.quistionList.length}",
+                    style: Theme.of(context).textTheme.bodyText1),
                 centerTitle: true,
                 elevation: 10,
               ),
@@ -31,15 +28,15 @@ class ExamPageView extends GetView<ExamPageController> {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    Expanded(
+                    SizedBox(
+                      height: h * 0.8,
+                      width: w,
                       child: PageView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           controller: controller.pageController,
                           itemCount: controller.quistionList.length,
                           itemBuilder: (context, index) {
                             return QuestionBody(
-                              h: h,
-                              w: w,
                               index: index,
                               quistion:
                                   controller.quistionList[index].question!,
@@ -72,16 +69,12 @@ class ExamPageView extends GetView<ExamPageController> {
 }
 
 class QuestionBody extends StatelessWidget {
-  final double h;
-  final double w;
   final String quistion;
   final int index;
   final List<String> list;
 
   const QuestionBody({
     Key? key,
-    required this.h,
-    required this.w,
     required this.index,
     required this.quistion,
     required this.list,
@@ -89,6 +82,8 @@ class QuestionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return GetBuilder<ExamPageController>(
         init: ExamPageController(),
         builder: (controller) {
@@ -121,10 +116,6 @@ class QuestionBody extends StatelessWidget {
                                 value: option,
                                 groupValue:
                                     controller.quistionList[index].userChoice,
-                                // groupValue: controller.userChoices[controller
-                                //     .quistionList[
-                                //         controller.pageController.page!.toInt()]
-                                //     .id],
                                 activeColor: AppColors.primary,
                                 dense: false,
                                 onChanged: (value) {
