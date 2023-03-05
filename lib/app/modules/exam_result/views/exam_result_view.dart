@@ -23,7 +23,7 @@ class ExamResultView extends GetView<ExamResultController> {
               style: TextStyle(fontSize: 25, color: Colors.black),
             ),
             Text(
-              controller.result.toString(),
+              "${controller.result} / ${controller.questions.length}",
               style: const TextStyle(fontSize: 25, color: Colors.black),
             ),
             Divider(
