@@ -3,7 +3,7 @@ class Question {
   final String rightAnswer;
   String? userChoice;
   final String? question;
-  final List<String>? options;
+  final List<dynamic>? options;
   final String? image;
   final List<String>? wrongImages;
 
