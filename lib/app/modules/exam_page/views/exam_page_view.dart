@@ -47,16 +47,31 @@ class ExamPageView extends GetView<ExamPageController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.goToPrevPage(index);
-                            },
-                            child: const Text("السابق")),
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.goToNextPage(index);
-                            },
-                            child: const Text("التالي")),
+                        if (controller.qNumber != 1) ...[
+                          SizedBox(
+                            width: context.width * 0.2,
+                            height: context.width * 0.12,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  controller.goToPrevPage(index);
+                                },
+                                child: const Text("السابق")),
+                          ),
+                        ],
+                        SizedBox(
+                          width: controller.qNumber != 1
+                              ? context.width * 0.7
+                              : context.width * 0.8,
+                          height: context.width * 0.12,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                controller.goToNextPage(index);
+                              },
+                              child: Text(controller.qNumber ==
+                                      controller.quistionList.length
+                                  ? "إنهاء"
+                                  : "التالي")),
+                        ),
                       ],
                     )
                   ],
@@ -91,12 +106,18 @@ class QuestionBody extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  quistion,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                child: SizedBox(
+                  height: context.height * 0.4,
+                  width: context.width * 0.9,
+                  child: Center(
+                    child: Text(
+                      quistion,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -109,6 +130,7 @@ class QuestionBody extends StatelessWidget {
                             height: h * 0.07,
                             width: w * 0.8,
                             decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primary),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(

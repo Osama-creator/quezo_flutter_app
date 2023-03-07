@@ -16,11 +16,11 @@ class SplashView extends GetView<SplashController> {
           children: [
             Image.asset(
               "assets/logo.png",
-              height: context.height * 0.3,
+              height: context.height * 0.15,
               width: context.width,
             ),
             Text("Quezo",
-                style: context.textTheme.headline3!.copyWith(
+                style: context.textTheme.headline4!.copyWith(
                   color: AppColors.primary,
                 ))
           ],

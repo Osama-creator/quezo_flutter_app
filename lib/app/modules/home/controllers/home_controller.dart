@@ -5,12 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
-  var isLoading = false;
+  bool isLoading = false;
   var categoriesList = <MainCategories>[];
 
   Future<void> getData() async {
-    // isLoading = true;
-    // update();
+    isLoading = true;
     try {
       QuerySnapshot categories =
           await FirebaseFirestore.instance.collection('sections').get();
@@ -24,13 +23,12 @@ class HomeController extends GetxController {
           sec: category['sec'],
         ));
       }
-      // isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString());
-      // isLoading = false;
+    } finally {
+      isLoading = false;
+      update();
     }
-
-    update();
   }
 
   void navigate(int index) {

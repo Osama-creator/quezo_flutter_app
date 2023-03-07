@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/config/utils/colors.dart';
 import '../../views/category_card.dart';
@@ -11,10 +12,8 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-        init: HomeController(),
-        initState: (_) {},
+        init: controller,
         builder: (controller) {
-          controller.getData();
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -30,21 +29,26 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.symmetric(
                           horizontal: context.width * 0.05,
                           vertical: context.height * 0.2),
-                      child: Center(
-                        child: ListView.builder(
-                          itemCount: controller.categoriesList.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () => controller.navigate(index),
-                              child: CategoryCard(
-                                title: controller.categoriesList[index].name,
-                                subTitle: "10 مواد ",
-                                image: controller.categoriesList[index].image!,
+                      child: controller.categoriesList.isEmpty
+                          ? Lottie.asset('assets/no_data.json',
+                              height: context.height * 0.5)
+                          : Center(
+                              child: ListView.builder(
+                                itemCount: controller.categoriesList.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () => controller.navigate(index),
+                                    child: CategoryCard(
+                                      title:
+                                          controller.categoriesList[index].name,
+                                      subTitle: "10 مواد ",
+                                      image: controller
+                                          .categoriesList[index].image!,
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            ),
                     ));
         });
   }

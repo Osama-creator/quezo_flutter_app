@@ -23,7 +23,7 @@ class ExamResultView extends GetView<ExamResultController> {
               style: TextStyle(fontSize: 25, color: Colors.black),
             ),
             Text(
-              "${controller.result} / ${controller.questions.length}",
+              "  ${controller.result} / ${controller.questions.length}",
               style: const TextStyle(fontSize: 25, color: Colors.black),
             ),
             Divider(
@@ -59,12 +59,17 @@ class ExamResultView extends GetView<ExamResultController> {
                       Column(
                         children: [
                           ChoiceItem(
-                            color: Colors.green,
+                            icon: Icons.check_circle_outline_outlined,
+                            color: AppColors.primary,
                             title: e.rightAnswer,
+                          ),
+                          const SizedBox(
+                            width: 5,
                           ),
                           e.userChoice != e.rightAnswer
                               ? ChoiceItem(
-                                  color: Colors.red,
+                                  icon: Icons.close,
+                                  color: Colors.red[900]!,
                                   title: e.userChoice!,
                                 )
                               : Container()
@@ -83,7 +88,9 @@ class ExamResultView extends GetView<ExamResultController> {
 class ChoiceItem extends StatelessWidget {
   final String title;
   final Color color;
-  const ChoiceItem({Key? key, required this.title, required this.color})
+  final IconData icon;
+  const ChoiceItem(
+      {Key? key, required this.title, required this.color, required this.icon})
       : super(key: key);
 
   @override
@@ -99,9 +106,19 @@ class ChoiceItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-              child: Text(
-            title,
-          )),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                ),
+                Icon(
+                  icon,
+                  color: AppColors.white,
+                )
+              ],
+            ),
+          ),
         ));
   }
 }

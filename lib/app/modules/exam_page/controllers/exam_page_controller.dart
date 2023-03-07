@@ -55,6 +55,18 @@ class ExamPageController extends GetxController {
     update();
   }
 
+  bool hasNoAnswer() {
+    late bool qDidnotAnswerd;
+    for (var qAnswer in quistionList) {
+      if (qAnswer.userChoice == null) {
+        return qDidnotAnswerd = true;
+      } else {
+        return qDidnotAnswerd = false;
+      }
+    }
+    return qDidnotAnswerd;
+  }
+
   void goToNextPage(int index) {
     if (qNumber < quistionList.length) {
       pageController.nextPage(
@@ -63,7 +75,12 @@ class ExamPageController extends GetxController {
       );
       qNumber++;
     } else {
-      Get.toNamed(Routes.EXAM_RESULT, arguments: [quistionList, finalMark()]);
+      if (hasNoAnswer()) {
+        Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
+      } else {
+        Get.offAndToNamed(Routes.EXAM_RESULT,
+            arguments: [quistionList, finalMark()]);
+      }
     }
 
     update();
@@ -92,7 +109,6 @@ class ExamPageController extends GetxController {
   void onInit() {
     pageController = PageController();
     getData();
-
     super.onInit();
   }
 }

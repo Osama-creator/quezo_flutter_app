@@ -44,7 +44,10 @@ class CategoryCard extends StatelessWidget {
           ),
           CachedNetworkImage(
             imageUrl: image,
-            placeholder: (context, url) => const CircularProgressIndicator(),
+            placeholder: (context, url) => const CircularProgressIndicator(
+              color: AppColors.primary,
+              strokeWidth: 2,
+            ),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ],

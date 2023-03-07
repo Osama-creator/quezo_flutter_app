@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 
 import '../../../core/config/utils/colors.dart';
 
-class SubjectCard extends StatelessWidget {
+class ExamCard extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
-  const SubjectCard({
+  const ExamCard({
     Key? key,
     required this.image,
     required this.title,
@@ -19,25 +19,22 @@ class SubjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(10),
       ),
       color: const Color.fromARGB(255, 188, 204, 207),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const SizedBox(
-            height: 10,
-          ),
           Card(
             color: AppColors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: CachedNetworkImage(
                 imageUrl: image,
-                height: context.height * 0.08,
+                height: context.height * 0.06,
                 placeholder: (context, url) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -55,12 +52,12 @@ class SubjectCard extends StatelessWidget {
           Text(
             title,
             style: context.textTheme.headline6!
-                .copyWith(color: AppColors.primary, fontSize: 22),
+                .copyWith(color: AppColors.primary, fontSize: 15),
           ),
           Text(
             subTitle,
             style: context.textTheme.headline5!
-                .copyWith(color: AppColors.primary, fontSize: 15),
+                .copyWith(color: AppColors.primary, fontSize: 12),
           ),
         ],
       ),

@@ -11,6 +11,7 @@ class SubjectsPageController extends GetxController {
 
   Future<void> getData() async {
     try {
+      isLoading = true;
       QuerySnapshot subjs = await FirebaseFirestore.instance
           .collection("sections")
           .doc(categoryId.id)
@@ -26,9 +27,10 @@ class SubjectsPageController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
+    } finally {
+      isLoading = false;
+      update();
     }
-
-    update();
   }
 
   void navigate(int index) {

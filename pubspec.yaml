@@ -9,10 +9,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.3.2
   cached_network_image: ^3.2.3
+  internet_connection_checker: ^1.0.0+1
   firebase_core: ^2.5.0
   firebase_storage: ^11.0.11
   google_fonts: ^3.0.1
   get: 4.6.5
+  lottie: ^2.2.0
   flutter: 
     sdk: flutter
 
@@ -25,4 +27,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
+    - assets/no_internet.json
+    - assets/no_data.json
 

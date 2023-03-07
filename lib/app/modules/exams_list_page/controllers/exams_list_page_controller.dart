@@ -10,12 +10,15 @@ class ExamsListPageController extends GetxController {
 
   var isLoading = false;
   var examsList = <ExamItem>[];
+  String cardImage = "";
 
   Future<void> getData() async {
     final exam = args[0] as MainCategories;
     final cat = args[1] as MainCategories;
+    cardImage = exam.image!;
 
     try {
+      isLoading = true;
       QuerySnapshot subjs = await FirebaseFirestore.instance
           .collection("sections")
           .doc(cat.id)
@@ -33,6 +36,9 @@ class ExamsListPageController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
+    } finally {
+      isLoading = false;
+      update();
     }
 
     update();

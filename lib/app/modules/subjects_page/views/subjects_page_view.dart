@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../core/config/utils/colors.dart';
 import '../../views/subject_card.dart';
@@ -11,16 +12,14 @@ class SubjectsPageView extends GetView<SubjectsPageController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SubjectsPageController>(
-        init: SubjectsPageController(),
-        initState: (_) {},
+        init: controller,
         builder: (controller) {
-          controller.getData();
           return Scaffold(
               appBar: AppBar(
                 title: Text(
                   'المواد',
-                  style: context.textTheme.headline6!
-                      .copyWith(color: AppColors.white),
+                  style: context.textTheme.headline5!
+                      .copyWith(color: AppColors.white, fontSize: 20),
                 ),
                 centerTitle: true,
               ),
@@ -30,24 +29,29 @@ class SubjectsPageView extends GetView<SubjectsPageController> {
                       padding: EdgeInsets.symmetric(
                           horizontal: context.width * 0.05, vertical: 10),
                       child: Center(
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 0.92,
-                                  crossAxisSpacing: context.width * 0.02,
-                                  mainAxisSpacing: context.height * 0.01),
-                          itemCount: controller.subjectsList.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                                onTap: () => controller.navigate(index),
-                                child: SubjectCard(
-                                  title: controller.subjectsList[index].name,
-                                  subTitle: "10 امتحانات ",
-                                  image: controller.subjectsList[index].image!,
-                                ));
-                          },
-                        ),
+                        child: controller.subjectsList.isEmpty
+                            ? Lottie.asset('assets/no_data.json',
+                                height: context.height * 0.5)
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.92,
+                                        crossAxisSpacing: context.width * 0.02,
+                                        mainAxisSpacing: context.height * 0.01),
+                                itemCount: controller.subjectsList.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                      onTap: () => controller.navigate(index),
+                                      child: SubjectCard(
+                                        title:
+                                            controller.subjectsList[index].name,
+                                        subTitle: "10 امتحانات ",
+                                        image: controller
+                                            .subjectsList[index].image!,
+                                      ));
+                                },
+                              ),
                       ),
                     ));
         });
