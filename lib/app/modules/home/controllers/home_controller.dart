@@ -16,8 +16,9 @@ class HomeController extends GetxController {
           await FirebaseFirestore.instance.collection('sections').get();
       categoriesList.clear();
       for (var category in categories.docs) {
-        categoriesList
-            .add(MainCategories(name: category['name'], id: category.id));
+        //? sec here refers to section
+        categoriesList.add(MainCategories(
+            name: category['name'], id: category.id, sec: category['sec']));
       }
       // isLoading = false;
     } catch (e) {
@@ -31,7 +32,7 @@ class HomeController extends GetxController {
   void navigate(int index) {
     Get.toNamed(
       Routes.SUBJECTS_PAGE,
-      arguments: categoriesList[index].id,
+      arguments: categoriesList[index],
     );
   }
 

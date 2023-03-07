@@ -16,19 +16,14 @@ class ExamPageController extends GetxController {
 
   Future<void> getData() async {
     final exam = args[0] as MainCategories;
-    final catId = args[1] as String;
+    final cat = args[1] as MainCategories;
     final examDetails = args[2] as ExamItem;
 
     try {
-      QuerySnapshot quistions = await FirebaseFirestore.instance
-          .collection("sections")
-          .doc(catId)
-          .collection('subjects')
-          .doc(exam.id)
-          .collection('quezes')
-          .doc(examDetails.id)
-          .collection('quez1')
-          .get();
+      String collectoinName =
+          '${cat.sec}_${exam.sub}_${examDetails.examNumber}';
+      QuerySnapshot quistions =
+          await FirebaseFirestore.instance.collection(collectoinName).get();
       quistionList.clear();
       for (var quistion in quistions.docs) {
         quistionList.add(Question(
@@ -97,6 +92,7 @@ class ExamPageController extends GetxController {
   void onInit() {
     pageController = PageController();
     getData();
+
     super.onInit();
   }
 }

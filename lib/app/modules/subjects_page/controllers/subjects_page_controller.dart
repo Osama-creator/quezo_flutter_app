@@ -5,7 +5,7 @@ import '../../../data/main_categories_model.dart';
 import '../../../routes/app_pages.dart';
 
 class SubjectsPageController extends GetxController {
-  final categoryId = Get.arguments as String;
+  final categoryId = Get.arguments as MainCategories;
   var isLoading = false;
   var subjectsList = <MainCategories>[];
 
@@ -13,13 +13,13 @@ class SubjectsPageController extends GetxController {
     try {
       QuerySnapshot subjs = await FirebaseFirestore.instance
           .collection("sections")
-          .doc(categoryId)
+          .doc(categoryId.id)
           .collection('subjects')
           .get();
       subjectsList.clear();
       for (var category in subjs.docs) {
-        subjectsList
-            .add(MainCategories(name: category['name'], id: category.id));
+        subjectsList.add(MainCategories(
+            name: category['name'], id: category.id, sub: category['sub']));
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
