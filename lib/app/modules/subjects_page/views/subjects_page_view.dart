@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/config/utils/colors.dart';
-import '../../views/category_card.dart';
+import '../../views/subject_card.dart';
 import '../controllers/subjects_page_controller.dart';
 
 class SubjectsPageView extends GetView<SubjectsPageController> {
@@ -28,18 +28,24 @@ class SubjectsPageView extends GetView<SubjectsPageController> {
                   ? const Center(child: CircularProgressIndicator())
                   : Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: context.width * 0.05),
+                          horizontal: context.width * 0.05, vertical: 10),
                       child: Center(
-                        child: ListView.builder(
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 0.92,
+                                  crossAxisSpacing: context.width * 0.02,
+                                  mainAxisSpacing: context.height * 0.01),
                           itemCount: controller.subjectsList.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () => controller.navigate(index),
-                              child: CategoryCard(
-                                title: controller.subjectsList[index].name,
-                                color: const Color.fromARGB(255, 43, 43, 43),
-                              ),
-                            );
+                                onTap: () => controller.navigate(index),
+                                child: SubjectCard(
+                                  title: controller.subjectsList[index].name,
+                                  subTitle: "10 امتحانات ",
+                                  image: controller.subjectsList[index].image!,
+                                ));
                           },
                         ),
                       ),

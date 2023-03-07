@@ -18,7 +18,11 @@ class HomeController extends GetxController {
       for (var category in categories.docs) {
         //? sec here refers to section
         categoriesList.add(MainCategories(
-            name: category['name'], id: category.id, sec: category['sec']));
+          name: category['name'],
+          id: category.id,
+          image: category['image'],
+          sec: category['sec'],
+        ));
       }
       // isLoading = false;
     } catch (e) {

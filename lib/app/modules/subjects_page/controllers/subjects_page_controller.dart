@@ -19,7 +19,10 @@ class SubjectsPageController extends GetxController {
       subjectsList.clear();
       for (var category in subjs.docs) {
         subjectsList.add(MainCategories(
-            name: category['name'], id: category.id, sub: category['sub']));
+            name: category['name'],
+            id: category.id,
+            image: category['image'],
+            sub: category['sub']));
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());

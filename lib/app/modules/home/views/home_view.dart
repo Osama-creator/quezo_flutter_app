@@ -19,8 +19,8 @@ class HomeView extends GetView<HomeController> {
               appBar: AppBar(
                 title: Text(
                   'الأقسام',
-                  style: context.textTheme.headline6!
-                      .copyWith(color: AppColors.white),
+                  style: context.textTheme.headline5!
+                      .copyWith(color: AppColors.white, fontSize: 20),
                 ),
                 centerTitle: true,
               ),
@@ -28,7 +28,8 @@ class HomeView extends GetView<HomeController> {
                   ? const Center(child: CircularProgressIndicator())
                   : Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: context.width * 0.05),
+                          horizontal: context.width * 0.05,
+                          vertical: context.height * 0.2),
                       child: Center(
                         child: ListView.builder(
                           itemCount: controller.categoriesList.length,
@@ -37,7 +38,8 @@ class HomeView extends GetView<HomeController> {
                               onTap: () => controller.navigate(index),
                               child: CategoryCard(
                                 title: controller.categoriesList[index].name,
-                                color: const Color.fromARGB(255, 43, 43, 43),
+                                subTitle: "10 مواد ",
+                                image: controller.categoriesList[index].image!,
                               ),
                             );
                           },

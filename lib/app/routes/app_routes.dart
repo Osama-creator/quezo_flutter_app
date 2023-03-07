@@ -8,6 +8,7 @@ abstract class Routes {
   static const EXAMS_LIST_PAGE = _Paths.EXAMS_LIST_PAGE;
   static const EXAM_PAGE = _Paths.EXAM_PAGE;
   static const EXAM_RESULT = _Paths.EXAM_RESULT;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const EXAMS_LIST_PAGE = '/exams-list-page';
   static const EXAM_PAGE = '/exam-page';
   static const EXAM_RESULT = '/exam-result';
+  static const SPLASH = '/splash';
 }

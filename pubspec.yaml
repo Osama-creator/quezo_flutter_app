@@ -8,6 +8,7 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.3.2
+  cached_network_image: ^3.2.3
   firebase_core: ^2.5.0
   firebase_storage: ^11.0.11
   google_fonts: ^3.0.1
@@ -22,4 +23,6 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+  assets:
+    - assets/logo.png
 
