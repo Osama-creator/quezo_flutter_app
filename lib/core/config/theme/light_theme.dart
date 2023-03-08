@@ -12,9 +12,14 @@ ThemeData getThemDataLight() => ThemeData(
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
       ),
-      elevatedButtonTheme: const ElevatedButtonThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(AppColors.primary))),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              )),
+              backgroundColor:
+                  const MaterialStatePropertyAll(AppColors.primary))),
       cardTheme: const CardTheme(color: AppColors.black),
       dividerColor: AppColors.primary,
       textTheme: TextTheme(

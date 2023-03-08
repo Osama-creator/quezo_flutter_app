@@ -16,19 +16,14 @@ class ExamPageController extends GetxController {
 
   Future<void> getData() async {
     final exam = args[0] as MainCategories;
-    final catId = args[1] as String;
+    final cat = args[1] as MainCategories;
     final examDetails = args[2] as ExamItem;
 
     try {
-      QuerySnapshot quistions = await FirebaseFirestore.instance
-          .collection("sections")
-          .doc(catId)
-          .collection('subjects')
-          .doc(exam.id)
-          .collection('quezes')
-          .doc(examDetails.id)
-          .collection('quez1')
-          .get();
+      String collectoinName =
+          '${cat.sec}_${exam.sub}_${examDetails.examNumber}';
+      QuerySnapshot quistions =
+          await FirebaseFirestore.instance.collection(collectoinName).get();
       quistionList.clear();
       for (var quistion in quistions.docs) {
         quistionList.add(Question(
@@ -60,6 +55,18 @@ class ExamPageController extends GetxController {
     update();
   }
 
+  bool hasNoAnswer() {
+    late bool qDidnotAnswerd;
+    for (var qAnswer in quistionList) {
+      if (qAnswer.userChoice == null) {
+        return qDidnotAnswerd = true;
+      } else {
+        return qDidnotAnswerd = false;
+      }
+    }
+    return qDidnotAnswerd;
+  }
+
   void goToNextPage(int index) {
     if (qNumber < quistionList.length) {
       pageController.nextPage(
@@ -68,7 +75,12 @@ class ExamPageController extends GetxController {
       );
       qNumber++;
     } else {
-      Get.toNamed(Routes.EXAM_RESULT, arguments: [quistionList, finalMark()]);
+      if (hasNoAnswer()) {
+        Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
+      } else {
+        Get.offAndToNamed(Routes.EXAM_RESULT,
+            arguments: [quistionList, finalMark()]);
+      }
     }
 
     update();
